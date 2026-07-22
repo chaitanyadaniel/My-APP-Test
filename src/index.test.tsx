@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { AccountOrdersPage, LoginPage } from './index';
+import { AccountOrdersPage, AccountPreferencesPage, LoginPage } from './index';
 
 describe('AccountOrdersPage', () => {
   it('renders the account orders heading and summary', async () => {
@@ -29,6 +29,26 @@ describe('AccountOrdersPage', () => {
     await user.click(screen.getByRole('button', { name: /account profile/i }));
 
     expect(screen.getByText(/account profile is coming soon/i)).toBeInTheDocument();
+  });
+});
+
+describe('AccountPreferencesPage', () => {
+  it('renders the preferences heading and controls', () => {
+    render(<AccountPreferencesPage />);
+
+    expect(screen.getByRole('heading', { name: /preferences/i })).toBeInTheDocument();
+    expect(screen.getByLabelText(/email updates/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/sms updates/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/preferred language/i)).toBeInTheDocument();
+  });
+
+  it('shows a success message after saving preferences', async () => {
+    const user = userEvent.setup();
+    render(<AccountPreferencesPage />);
+
+    await user.click(screen.getByRole('button', { name: /save preferences/i }));
+
+    expect(await screen.findByText(/preferences saved successfully/i)).toBeInTheDocument();
   });
 });
 
