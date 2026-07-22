@@ -97,6 +97,13 @@
   font-size: 1rem;
 }
 
+.field input:focus,
+.field input:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  border-color: #2563eb;
+}
+
 .submitButton {
   margin-top: 0.25rem;
   padding: 0.7rem 1rem;
@@ -106,6 +113,19 @@
   color: white;
   cursor: pointer;
   font-weight: 600;
+  font-size: 1rem;
+}
+
+.feedback {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.93rem;
+}
+
+.success {
+  margin: 0;
+  color: #15803d;
+  font-size: 0.93rem;
 }
 
 .closeButton {
