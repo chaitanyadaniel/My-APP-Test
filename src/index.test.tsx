@@ -1,37 +1,85 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import WelcomeScreen from './index';
+import { beforeEach, describe, expect, it } from 'vitest';
+import LoginPage from './index';
 
 describe('WelcomeScreen', () => {
   beforeEach(() => {
     localStorage.clear();
   });
 
-  it('shows on first load', () => {
-    render(<WelcomeScreen userName="Chintu" />);
+  it('renders the login page heading', () => {
+    render(<LoginPage />);
 
-    expect(screen.getByRole('dialog', { name: /welcome screen/i })).toBeInTheDocument();
-    expect(screen.getByText(/welcome, chintu/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /sign in to continue/i })).toBeInTheDocument();
+    expect(screen.getByText(/welcome back/i)).toBeInTheDocument();
   });
 
-  it('does not show on subsequent loads', () => {
+  it('does not render the old welcome modal', () => {
     localStorage.setItem('welcome-screen-dismissed', 'true');
-    render(<WelcomeScreen userName="Chintu" />);
+    render(<LoginPage />);
 
     expect(screen.queryByRole('dialog', { name: /welcome screen/i })).not.toBeInTheDocument();
   });
 
-  it('dismisses correctly and sets the flag', async () => {
+  it('renders a user icon in the header', () => {
+    render(<LoginPage />);
+
+    expect(screen.getByRole('button', { name: /user profile/i })).toBeInTheDocument();
+  });
+
+  it('shows feedback when the profile button is clicked', async () => {
     const user = userEvent.setup();
-    render(<WelcomeScreen userName="Chintu" />);
+    render(<LoginPage />);
 
-    await user.click(screen.getByRole('button', { name: /close/i }));
+    await user.click(screen.getByRole('button', { name: /user profile/i }));
 
-    await waitFor(() => {
-      expect(localStorage.getItem('welcome-screen-dismissed')).toBe('true');
-    });
+    expect(screen.getByText(/user profile is not available yet/i)).toBeInTheDocument();
+  });
 
-    expect(screen.queryByRole('dialog', { name: /welcome screen/i })).not.toBeInTheDocument();
+  it('renders a login form with username, password, and submit controls', () => {
+    render(<LoginPage />);
+
+    expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
+  });
+
+  it('renders the login form without the old close action', () => {
+    render(<LoginPage />);
+
+    expect(screen.queryByRole('button', { name: /close/i })).not.toBeInTheDocument();
+  });
+
+  it('updates the input values as the user types', async () => {
+    const user = userEvent.setup();
+    render(<LoginPage />);
+
+    await user.type(screen.getByLabelText(/username/i), 'demo');
+    await user.type(screen.getByLabelText(/password/i), 'secret');
+
+    expect(screen.getByLabelText(/username/i)).toHaveValue('demo');
+    expect(screen.getByLabelText(/password/i)).toHaveValue('secret');
+  });
+
+  it('shows validation feedback when required fields are empty', async () => {
+    const user = userEvent.setup();
+    render(<LoginPage />);
+
+    await user.click(screen.getByRole('button', { name: /submit/i }));
+
+    expect(screen.getByText(/username and password are required/i)).toBeInTheDocument();
+  });
+
+  it('shows a success message for a valid login attempt', async () => {
+    const user = userEvent.setup();
+    render(<LoginPage />);
+
+    await user.type(screen.getByLabelText(/username/i), 'demo');
+    await user.type(screen.getByLabelText(/password/i), 'password');
+    await user.click(screen.getByRole('button', { name: /submit/i }));
+
+    expect(screen.getByRole('button', { name: /submitting/i })).toBeDisabled();
+    expect(await screen.findByText(/login successful/i)).toBeInTheDocument();
   });
 });
