@@ -1,7 +1,25 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import LoginPage from './index';
+import { AccountOrdersPage, LoginPage } from './index';
+
+describe('AccountOrdersPage', () => {
+  it('renders the account orders heading and summary', () => {
+    render(<AccountOrdersPage />);
+
+    expect(screen.getByRole('heading', { name: /my orders/i })).toBeInTheDocument();
+    expect(screen.getByText(/total orders/i)).toBeInTheDocument();
+    expect(screen.getByText(/latest status/i)).toBeInTheDocument();
+  });
+
+  it('renders the order list entries', () => {
+    render(<AccountOrdersPage />);
+
+    expect(screen.getByText(/#1042/i)).toBeInTheDocument();
+    expect(screen.getByText(/#1038/i)).toBeInTheDocument();
+    expect(screen.getByText(/#1029/i)).toBeInTheDocument();
+  });
+});
 
 describe('WelcomeScreen', () => {
   beforeEach(() => {
