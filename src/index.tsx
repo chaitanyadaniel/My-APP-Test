@@ -14,6 +14,59 @@ const demoOrders: Order[] = [
   { number: '#1029', date: 'Jun 03, 2026', total: '$210.00', status: 'Delivered' },
 ];
 
+interface Product {
+  name: string;
+  price: string;
+  description: string;
+  badge: string;
+}
+
+const dummyProducts: Product[] = [
+  { name: 'Aurora Lamp', price: '$89', description: 'Soft ambient lighting for cozy evenings.', badge: 'New' },
+  { name: 'Nimbus Backpack', price: '$74', description: 'Weather-ready carryall with smart pockets.', badge: 'Best Seller' },
+  { name: 'Terra Mug', price: '$24', description: 'Ceramic comfort crafted for daily rituals.', badge: 'Limited' },
+  { name: 'Halo Headphones', price: '$149', description: 'Immersive sound in a lightweight frame.', badge: 'Trending' },
+  { name: 'Cove Chair', price: '$199', description: 'Ergonomic support with sculpted comfort.', badge: 'Editor Pick' },
+  { name: 'Lumen Watch', price: '$129', description: 'Minimal design with a bright, modern finish.', badge: 'Hot Deal' },
+];
+
+export const ProductListingPage: React.FC = () => {
+  return (
+    <div className={styles.page}>
+      <div className={styles.productShell}>
+        <div className={styles.productHeader}>
+          <div>
+            <p className={styles.eyebrow}>Shop</p>
+            <h1 className={styles.title}>Featured Products</h1>
+            <p className={styles.productSubtitle}>Discover our latest picks curated for everyday living.</p>
+          </div>
+          <button className={styles.userButton} type="button" aria-label="View cart">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 6h14l-1.5 7.5a2 2 0 0 1-2 1.5H9.5A2 2 0 0 1 7.5 13L7 6Zm-2 0H3v-2h3l1 2Zm2 12a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm9 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z" />
+            </svg>
+          </button>
+        </div>
+
+        <div className={styles.productGrid}>
+          {dummyProducts.map((product) => (
+            <article className={styles.productCard} key={product.name}>
+              <div className={styles.productBadge}>{product.badge}</div>
+              <h2 className={styles.productName}>{product.name}</h2>
+              <p className={styles.productDescription}>{product.description}</p>
+              <div className={styles.productFooter}>
+                <span className={styles.productPrice}>{product.price}</span>
+                <button className={styles.productButton} type="button">
+                  Add to bag
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -275,4 +328,4 @@ export const AccountPreferencesPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default ProductListingPage;
