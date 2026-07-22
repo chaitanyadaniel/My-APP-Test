@@ -1,7 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { AccountOrdersPage, AccountPreferencesPage, LoginPage } from './index';
+import { AccountOrdersPage, AccountPreferencesPage, LoginPage, ProductListingPage } from './index';
+
+describe('ProductListingPage', () => {
+  it('renders six dummy products in a product grid', () => {
+    render(<ProductListingPage />);
+
+    expect(screen.getByRole('heading', { name: /featured products/i })).toBeInTheDocument();
+    expect(screen.getByText(/discover our latest picks/i)).toBeInTheDocument();
+    expect(screen.getAllByRole('article')).toHaveLength(6);
+    expect(screen.getByText(/aurora lamp/i)).toBeInTheDocument();
+    expect(screen.getByText(/nimbus backpack/i)).toBeInTheDocument();
+  });
+});
 
 describe('AccountOrdersPage', () => {
   it('renders the account orders heading and summary', async () => {
