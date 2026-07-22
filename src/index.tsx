@@ -1,7 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from './WelcomeScreen.module.css';
 
-const LoginPage: React.FC = () => {
+interface Order {
+  number: string;
+  date: string;
+  total: string;
+  status: 'Delivered' | 'Processing' | 'Cancelled' | 'Refunded';
+}
+
+const demoOrders: Order[] = [
+  { number: '#1042', date: 'Jul 12, 2026', total: '$129.99', status: 'Delivered' },
+  { number: '#1038', date: 'Jun 28, 2026', total: '$74.50', status: 'Processing' },
+  { number: '#1029', date: 'Jun 03, 2026', total: '$210.00', status: 'Delivered' },
+];
+
+export const LoginPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -97,6 +110,88 @@ const LoginPage: React.FC = () => {
             {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
         </form>
+      </div>
+    </div>
+  );
+};
+
+export const AccountOrdersPage: React.FC = () => {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const loadOrders = window.setTimeout(() => {
+      try {
+        setOrders(demoOrders);
+        setIsLoading(false);
+      } catch {
+        setError('We could not load your orders right now.');
+        setIsLoading(false);
+      }
+    }, 300);
+
+    return () => window.clearTimeout(loadOrders);
+  }, []);
+
+  const latestStatus = useMemo(() => orders[0]?.status ?? 'No orders yet', [orders]);
+
+  const handleProfileClick = () => {
+    setError('Account profile is coming soon.');
+  };
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.ordersCard}>
+        <div className={styles.ordersHeader}>
+          <div>
+            <p className={styles.eyebrow}>Account</p>
+            <h1 className={styles.title}>My Orders</h1>
+          </div>
+          <button className={styles.userButton} type="button" aria-label="Account profile" onClick={handleProfileClick}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.33 0-6 1.79-6 4v1h12v-1c0-2.21-2.67-4-6-4Z" />
+            </svg>
+          </button>
+        </div>
+
+        <div className={styles.summaryRow}>
+          <div className={styles.summaryBox}>
+            <span>Total orders</span>
+            <strong>{orders.length}</strong>
+          </div>
+          <div className={styles.summaryBox}>
+            <span>Latest status</span>
+            <strong>{latestStatus}</strong>
+          </div>
+        </div>
+
+        {isLoading ? <p className={styles.statusMessage}>Loading your orders…</p> : null}
+        {error ? <p className={styles.errorMessage}>{error}</p> : null}
+        {!isLoading && !error && orders.length === 0 ? <p className={styles.statusMessage}>You have no orders yet.</p> : null}
+        {!isLoading && !error && orders.length > 0 ? (
+          <ul className={styles.orderList}>
+            {orders.map((order) => (
+              <li className={styles.orderItem} key={order.number}>
+                <div>
+                  <p className={styles.orderNumber}>{order.number}</p>
+                  <p className={styles.orderMeta}>{order.date}</p>
+                </div>
+                <div className={styles.orderMetaGroup}>
+                  <span className={styles.orderTotal}>{order.total}</span>
+                  <span className={`${styles.orderStatus} ${styles[`status${order.status}`]}`}>{order.status}</span>
+                  <button
+                    className={styles.viewDetailsButton}
+                    type="button"
+                    onClick={() => setError(`Details for ${order.number} are coming soon.`)}
+                  >
+                    View details
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
     </div>
   );
