@@ -30,6 +30,14 @@
   width: min(100%, 720px);
 }
 
+.preferencesCard {
+  width: min(100%, 560px);
+  padding: 2rem;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+}
+
 .header {
   display: flex;
   justify-content: flex-end;
@@ -150,6 +158,36 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
+}
+
+.preferencesForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.preferenceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: 600;
+  color: #374151;
+}
+
+.preferenceRow input {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.field select {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: white;
 }
 
 .orderList {

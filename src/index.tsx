@@ -197,4 +197,82 @@ export const AccountOrdersPage: React.FC = () => {
   );
 };
 
+export const AccountPreferencesPage: React.FC = () => {
+  const [emailUpdates, setEmailUpdates] = useState(true);
+  const [smsUpdates, setSmsUpdates] = useState(false);
+  const [language, setLanguage] = useState('English');
+  const [statusMessage, setStatusMessage] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleSave = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSaving(true);
+    setStatusMessage('');
+
+    window.setTimeout(() => {
+      setIsSaving(false);
+      setStatusMessage('Preferences saved successfully.');
+    }, 400);
+  };
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.preferencesCard}>
+        <div className={styles.ordersHeader}>
+          <div>
+            <p className={styles.eyebrow}>Account</p>
+            <h1 className={styles.title}>Preferences</h1>
+          </div>
+          <button className={styles.userButton} type="button" aria-label="Account profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.33 0-6 1.79-6 4v1h12v-1c0-2.21-2.67-4-6-4Z" />
+            </svg>
+          </button>
+        </div>
+
+        <form className={styles.preferencesForm} onSubmit={handleSave} noValidate>
+          <label className={styles.preferenceRow} htmlFor="emailUpdates">
+            <span>Email updates</span>
+            <input
+              id="emailUpdates"
+              type="checkbox"
+              checked={emailUpdates}
+              onChange={(event) => setEmailUpdates(event.target.checked)}
+            />
+          </label>
+
+          <label className={styles.preferenceRow} htmlFor="smsUpdates">
+            <span>SMS updates</span>
+            <input
+              id="smsUpdates"
+              type="checkbox"
+              checked={smsUpdates}
+              onChange={(event) => setSmsUpdates(event.target.checked)}
+            />
+          </label>
+
+          <label className={styles.field} htmlFor="language">
+            <span>Preferred language</span>
+            <select id="language" value={language} onChange={(event) => setLanguage(event.target.value)}>
+              <option value="English">English</option>
+              <option value="Español">Español</option>
+              <option value="Français">Français</option>
+            </select>
+          </label>
+
+          {statusMessage ? (
+            <p className={styles.success} role="status" aria-live="polite">
+              {statusMessage}
+            </p>
+          ) : null}
+
+          <button className={styles.submitButton} type="submit" disabled={isSaving}>
+            {isSaving ? 'Saving...' : 'Save preferences'}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
 export default LoginPage;
