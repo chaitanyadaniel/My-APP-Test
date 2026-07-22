@@ -22,6 +22,12 @@ describe('WelcomeScreen', () => {
     expect(screen.queryByRole('dialog', { name: /welcome screen/i })).not.toBeInTheDocument();
   });
 
+  it('renders a user icon in the header', () => {
+    render(<WelcomeScreen userName="Chintu" />);
+
+    expect(screen.getByRole('button', { name: /user profile/i })).toBeInTheDocument();
+  });
+
   it('dismisses correctly and sets the flag', async () => {
     const user = userEvent.setup();
     render(<WelcomeScreen userName="Chintu" />);

@@ -57,6 +57,13 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ userName = 'there' }) => 
         aria-label="Welcome screen"
         tabIndex={-1}
       >
+        <div className={styles.header}>
+          <button className={styles.userButton} type="button" aria-label="User profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-3.33 0-6 1.79-6 4v1h12v-1c0-2.21-2.67-4-6-4Z" />
+            </svg>
+          </button>
+        </div>
         <h1 className={styles.title}>Welcome, {userName}!</h1>
         <p className={styles.message}>Thanks for stopping by.</p>
         <button className={styles.closeButton} onClick={dismiss} type="button">
