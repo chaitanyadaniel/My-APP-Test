@@ -17,12 +17,17 @@
   background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
 }
 
-.card {
+.card,
+.ordersCard {
   width: min(100%, 420px);
   padding: 2rem;
   border-radius: 16px;
   background: white;
   box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
+}
+
+.ordersCard {
+  width: min(100%, 720px);
 }
 
 .header {
@@ -37,6 +42,37 @@
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1.25rem;
+}
+
+.ordersHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.summaryRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.summaryBox {
+  padding: 1rem;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  color: #475569;
+}
+
+.summaryBox strong {
+  color: #0f172a;
+  font-size: 1.1rem;
 }
 
 .eyebrow {
@@ -114,6 +150,91 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
+}
+
+.orderList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.orderItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.orderNumber {
+  margin: 0 0 0.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.orderMeta {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.orderMetaGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.viewDetailsButton {
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.7rem;
+  border: none;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.orderTotal {
+  font-weight: 700;
+  color: #111827;
+}
+
+.orderStatus {
+  font-size: 0.9rem;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.statusProcessing {
+  color: #b45309;
+}
+
+.statusCancelled {
+  color: #b91c1c;
+}
+
+.statusRefunded {
+  color: #7c3aed;
+}
+
+.statusMessage,
+.errorMessage {
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.errorMessage {
+  color: #b91c1c;
 }
 
 .feedback {
