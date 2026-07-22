@@ -4,20 +4,31 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { AccountOrdersPage, LoginPage } from './index';
 
 describe('AccountOrdersPage', () => {
-  it('renders the account orders heading and summary', () => {
+  it('renders the account orders heading and summary', async () => {
     render(<AccountOrdersPage />);
 
     expect(screen.getByRole('heading', { name: /my orders/i })).toBeInTheDocument();
     expect(screen.getByText(/total orders/i)).toBeInTheDocument();
     expect(screen.getByText(/latest status/i)).toBeInTheDocument();
+    expect(await screen.findAllByText('Delivered')).not.toHaveLength(0);
+    expect(screen.getByText('3')).toBeInTheDocument();
   });
 
-  it('renders the order list entries', () => {
+  it('renders the order list entries', async () => {
     render(<AccountOrdersPage />);
 
-    expect(screen.getByText(/#1042/i)).toBeInTheDocument();
+    expect(await screen.findByText(/#1042/i)).toBeInTheDocument();
     expect(screen.getByText(/#1038/i)).toBeInTheDocument();
     expect(screen.getByText(/#1029/i)).toBeInTheDocument();
+  });
+
+  it('shows feedback when the account profile button is clicked', async () => {
+    const user = userEvent.setup();
+    render(<AccountOrdersPage />);
+
+    await user.click(screen.getByRole('button', { name: /account profile/i }));
+
+    expect(screen.getByText(/account profile is coming soon/i)).toBeInTheDocument();
   });
 });
 

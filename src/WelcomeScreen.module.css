@@ -17,7 +17,8 @@
   background: linear-gradient(135deg, #eff6ff 0%, #e0e7ff 100%);
 }
 
-.card {
+.card,
+.ordersCard {
   width: min(100%, 420px);
   padding: 2rem;
   border-radius: 16px;
@@ -27,10 +28,6 @@
 
 .ordersCard {
   width: min(100%, 720px);
-  padding: 2rem;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.15);
 }
 
 .header {
@@ -194,6 +191,18 @@
   gap: 0.25rem;
 }
 
+.viewDetailsButton {
+  margin-top: 0.25rem;
+  padding: 0.4rem 0.7rem;
+  border: none;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 .orderTotal {
   font-weight: 700;
   color: #111827;
@@ -203,6 +212,29 @@
   font-size: 0.9rem;
   color: #2563eb;
   font-weight: 600;
+}
+
+.statusProcessing {
+  color: #b45309;
+}
+
+.statusCancelled {
+  color: #b91c1c;
+}
+
+.statusRefunded {
+  color: #7c3aed;
+}
+
+.statusMessage,
+.errorMessage {
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.errorMessage {
+  color: #b91c1c;
 }
 
 .feedback {
