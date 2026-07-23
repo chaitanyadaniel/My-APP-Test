@@ -22,7 +22,7 @@ interface Product {
 }
 
 const dummyProducts: Product[] = [
-  { name: 'Aurora Lamp', price: '$89', description: 'Soft ambient lighting for cozy evenings.', badge: 'New' },
+  { name: 'Aurora Lamp', price: '$890', description: 'Soft ambient lighting for cozy evenings.', badge: 'New' },
   { name: 'Nimbus Backpack', price: '$74', description: 'Weather-ready carryall with smart pockets.', badge: 'Best Seller' },
   { name: 'Terra Mug', price: '$24', description: 'Ceramic comfort crafted for daily rituals.', badge: 'Limited' },
   { name: 'Halo Headphones', price: '$149', description: 'Immersive sound in a lightweight frame.', badge: 'Trending' },
