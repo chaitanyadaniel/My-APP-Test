@@ -65,7 +65,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ userName = 'there' }) => 
           </button>
         </div>
         <h1 className={styles.title}>Welcome, {userName}!</h1>
-        <p className={styles.message}>Thanks for stopping by.</p>
+        <p className={styles.message}>Thanks for stopping.</p>
         <button className={styles.closeButton} onClick={dismiss} type="button">
           Close
         </button>
