@@ -9,7 +9,7 @@ interface Order {
 }
 
 const demoOrders: Order[] = [
-  { number: '#1042', date: 'Jul 12, 2026', total: '$129.99', status: 'Delivered' },
+  { number: '#1042', date: 'Jul 12, 2026', total: '$140.99', status: 'Delivered' },
   { number: '#1038', date: 'Jun 28, 2026', total: '$74.50', status: 'Processing' },
   { number: '#1029', date: 'Jun 03, 2026', total: '$210.00', status: 'Delivered' },
 ];
