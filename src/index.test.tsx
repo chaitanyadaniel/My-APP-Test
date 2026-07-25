@@ -9,7 +9,7 @@ describe('ProductListingPage', () => {
 
     expect(screen.getByRole('heading', { name: /featured products/i })).toBeInTheDocument();
     expect(screen.getByText(/discover our latest picks/i)).toBeInTheDocument();
-    expect(screen.getAllByRole('article')).toHaveLength(6);
+    expect(screen.getAllByRole('article')).toHaveLength(10);
     expect(screen.getByText(/aurora lamp/i)).toBeInTheDocument();
     expect(screen.getByText(/nimbus backpack/i)).toBeInTheDocument();
   });
