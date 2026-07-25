@@ -22,7 +22,7 @@ describe('AccountOrdersPage', () => {
     expect(screen.getByRole('heading', { name: /my orders/i })).toBeInTheDocument();
     expect(screen.getByText(/total orders/i)).toBeInTheDocument();
     expect(screen.getByText(/latest status/i)).toBeInTheDocument();
-    expect(await screen.findAllByText('Delivered')).not.toHaveLength(0);
+    expect(await screen.findAllByText('Delivered')).not.toHaveLength(5);
     expect(screen.getByText('3')).toBeInTheDocument();
   });
 
